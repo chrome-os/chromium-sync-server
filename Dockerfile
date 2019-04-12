@@ -24,7 +24,7 @@ ENV PATH $PATH:/workdir/depot_tools
 WORKDIR chromium
 
 # Add "--no-history" to run the experiment on master
-RUN fetch --nohooks chromium
+RUN fetch --nohooks --no-history chromium
 
 WORKDIR src
 
