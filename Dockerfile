@@ -66,7 +66,7 @@ RUN mkdir sync lib && \
     cp -rp /workdir/chromium/src/out/Default/pyproto/components/sync/protocol/ lib/protocol/ && \
     cp -rp /workdir/chromium/src/out/Default/pyproto/google . && \
     cp -rp /workdir/chromium/src/components/sync/tools/testserver/ sync/testserver/ && \
-    cp -rp /workdir/chromium/src//net/tools/testserver/ lib/testserver/ && \
+    cp -rp /workdir/chromium/src/net/tools/testserver/ lib/testserver/ && \
     cp -rp /workdir/chromium/src/third_party/tlslite/tlslite/ . && \
 	rm -rf /workdir/chromium && \
 	rm -rf /workdir/depot_tools && \
