@@ -52,8 +52,8 @@ gclient runhooks
 
 # Build the python app
 gn gen --enable_nacl=false --symbol_level=0 --remove_webcore_debug_symbols=true --is_debug=false out/Default && \
-    ninja -C out/Default third_party/protobuf:py_proto && \
-    ninja -C out/Default components/sync/protocol:protocol
+    autoninja -C out/Default third_party/protobuf:py_proto && \
+    autoninja -C out/Default components/sync/protocol:protocol
 	
 mkdir -p ~/workdir/sync-server
 cd ~/workdir/sync-server
