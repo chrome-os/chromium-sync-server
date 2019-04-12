@@ -24,7 +24,6 @@ cd chromium
 
 # Add "--no-history" to run the experiment on master
 fetch --nohooks --no-history chromium
-exit
 cd src
 
 # bash build/install-build-deps.sh --no-syms --no-arm --no-nacl --no-chromeos-fonts
