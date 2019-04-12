@@ -1,7 +1,7 @@
 sudo DEBIAN_FRONTEND=noninteractive apt-get update -q --fix-missing
-sudo apt-get --allow update
-sudo apt-get --allow upgrade
-sudo apt-get --allow install \
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get -y install \
     git \
     python \
     sudo \
@@ -31,8 +31,8 @@ cd src
 
 sudo DEBIAN_FRONTEND=noninteractive apt-get update -q --fix-missing
 sudo apt-get -y update
-sudo apt-get --allow upgrade
-sudo apt-get --allow install \
+sudo apt-get -y upgrade
+sudo apt-get -y install \
 apache2.2-bin bison cdbs curl devscripts dpkg-dev elfutils fakeroot flex fonts-ipafont fonts-thai-tlwg g++ git-core git-svn gperf lib32gcc1 lib32stdc++6 libapache2-mod-php5 \
 libatk1.0-0 libav-tools libbluetooth-dev libbrlapi-dev libbrlapi-dev libbz2-1.0 libbz2-dev libc6 libc6-i386 libcairo2 libcairo2-dev libcap-dev libcap2 \
 libcurl4-gnutls-dev libdrm-dev libelf-dev libexpat1 libffi-dev libffi6 libfontconfig1 libfreetype6 libgbm-dev libgconf2-dev libgl1-mesa-dev \
