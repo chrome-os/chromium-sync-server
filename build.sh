@@ -19,12 +19,12 @@ git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git --dep
 
 PATH=$PATH:~/workdir/depot_tools
 
-mkdir -p chromium/src
+mkdir -p chromium
 cd chromium
 
 # Add "--no-history" to run the experiment on master
 fetch --nohooks --no-history chromium
-
+exit
 cd src
 
 # bash build/install-build-deps.sh --no-syms --no-arm --no-nacl --no-chromeos-fonts
