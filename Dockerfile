@@ -17,7 +17,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -q --fix-missing && \
 
 WORKDIR /workdir
 
-RUN git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+RUN git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git --depth=1
 
 ENV PATH $PATH:/workdir/depot_tools
 
