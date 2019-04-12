@@ -1,7 +1,7 @@
-sudo DEBIAN_FRONTEND=noninteractive apt-get update -q --fix-missing 
-sudo apt-get -y update 
-sudo apt-get -y --allow upgrade 
-sudo apt-get -y --allow install \
+sudo DEBIAN_FRONTEND=noninteractive apt-get update -q --fix-missing
+sudo apt-get --allow update
+sudo apt-get --allow upgrade
+sudo apt-get --allow install \
     git \
     python \
     sudo \
@@ -10,7 +10,7 @@ sudo apt-get -y --allow install \
     ninja-build \
     lsb-release \
     libgconf-2-4 \
-    libnss3 
+    libnss3
 
 mkdir -p ~/workdir
 cd ~/workdir
@@ -30,23 +30,23 @@ cd src
 # bash build/install-build-deps.sh --no-syms --no-arm --no-nacl --no-chromeos-fonts
 
 sudo DEBIAN_FRONTEND=noninteractive apt-get update -q --fix-missing
-sudo apt-get -y update 
-sudo apt-get -y --allow upgrade 
-sudo apt-get -y --allow install \
-    apache2.2-bin bison cdbs curl devscripts dpkg-dev elfutils fakeroot flex fonts-ipafont fonts-thai-tlwg g++ git-core git-svn gperf lib32gcc1 lib32stdc++6 libapache2-mod-php5 \ 
-	libatk1.0-0 libav-tools libbluetooth-dev libbrlapi-dev libbrlapi-dev libbz2-1.0 libbz2-dev libc6 libc6-i386 libcairo2 libcairo2-dev libcap-dev libcap2 \ 
-	libcurl4-gnutls-dev libdrm-dev libelf-dev libexpat1 libffi-dev libffi6 libfontconfig1 libfreetype6 libgbm-dev libgconf2-dev libgl1-mesa-dev \ 
-	libglib2.0-0 libglib2.0-dev libglu1-mesa-dev libgnome-keyring-dev libgnome-keyring0 libgtk2.0-0 libgtk2.0-dev libjpeg62-turbo-dev libkrb5-dev libnspr4-0d \
-	libnss3-1d libnss3-dev libpam0g libpam0g-dev libpango1.0-0 libpci-dev libpci3 libpcre3 libpixman-1-0 libpulse-dev libpulse0 libsctp-dev libspeechd-dev \ 
-	libspeechd2 libsqlite3-0 libsqlite3-dev libssl-dev libstdc++6 libudev-dev libudev1 libwww-perl libx11-6 libx11-xcb1 libxau6 libxcb1 libxcomposite1 libxcursor1 libxdamage1 \
-	libxext6 libxfixes3 libxi6 libxinerama1 libxkbcommon-dev libxrandr2 libxrender1 libxslt1-dev libxss-dev libxt-dev libxtst-dev libxtst6 mesa-common-dev openbox patch \ 
-	php5-cgi pkg-config python python-cherrypy3 python-crypto python-dev python-numpy python-opencv python-openssl python-psutil python-yaml realpath rpm ruby subversion \
-	fonts-indic wdiff xcompmgr zip zlib1g 
-	
+sudo apt-get -y update
+sudo apt-get --allow upgrade
+sudo apt-get --allow install \
+apache2.2-bin bison cdbs curl devscripts dpkg-dev elfutils fakeroot flex fonts-ipafont fonts-thai-tlwg g++ git-core git-svn gperf lib32gcc1 lib32stdc++6 libapache2-mod-php5 \
+libatk1.0-0 libav-tools libbluetooth-dev libbrlapi-dev libbrlapi-dev libbz2-1.0 libbz2-dev libc6 libc6-i386 libcairo2 libcairo2-dev libcap-dev libcap2 \
+libcurl4-gnutls-dev libdrm-dev libelf-dev libexpat1 libffi-dev libffi6 libfontconfig1 libfreetype6 libgbm-dev libgconf2-dev libgl1-mesa-dev \
+libglib2.0-0 libglib2.0-dev libglu1-mesa-dev libgnome-keyring-dev libgnome-keyring0 libgtk2.0-0 libgtk2.0-dev libjpeg62-turbo-dev libkrb5-dev libnspr4-0d \
+libnss3-1d libnss3-dev libpam0g libpam0g-dev libpango1.0-0 libpci-dev libpci3 libpcre3 libpixman-1-0 libpulse-dev libpulse0 libsctp-dev libspeechd-dev \
+libspeechd2 libsqlite3-0 libsqlite3-dev libssl-dev libstdc++6 libudev-dev libudev1 libwww-perl libx11-6 libx11-xcb1 libxau6 libxcb1 libxcomposite1 libxcursor1 libxdamage1 \
+libxext6 libxfixes3 libxi6 libxinerama1 libxkbcommon-dev libxrandr2 libxrender1 libxslt1-dev libxss-dev libxt-dev libxtst-dev libxtst6 mesa-common-dev openbox patch \
+php5-cgi pkg-config python python-cherrypy3 python-crypto python-dev python-numpy python-opencv python-openssl python-psutil python-yaml realpath rpm ruby subversion \
+fonts-indic wdiff xcompmgr zip zlib1g
+
 # Remove this to run the experiment on master
 # git checkout 58.0.3011.4
 
-gclient runhooks 
+gclient runhooks
 
 # Compile a binary of the test sync server if you don't want the python version (caution: very long)
 # gn gen --enable_nacl=false --symbol_level=0 --remove_webcore_debug_symbols=true --is_debug=false out/Default && ninja -C out/Default components/sync:run_sync_testserver
