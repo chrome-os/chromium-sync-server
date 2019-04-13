@@ -140,6 +140,7 @@ class ClientHello(HandshakeMsg):
         self.tb_client_params = []
         self.support_signed_cert_timestamps = False
         self.status_request = False
+        self.has_supported_versions = False
         self.ri = False
 
     def create(self, version, random, session_id, cipher_suites,
@@ -224,7 +225,7 @@ class ClientHello(HandshakeMsg):
                         p2 = Parser(tokenBindingBytes)
                         ver_minor = p2.get(1)
                         ver_major = p2.get(1)
-                        if (ver_major, ver_minor) >= (0, 10):
+                        if (ver_major, ver_minor) >= (0, 13):
                             p2.startLengthCheck(1)
                             while not p2.atLengthCheck():
                                 self.tb_client_params.append(p2.get(1))
@@ -251,6 +252,11 @@ class ClientHello(HandshakeMsg):
                         if extLength != 1 or p.getFixBytes(extLength)[0] != 0:
                             raise SyntaxError()
                         self.ri = True
+                    elif extType == ExtensionType.supported_versions:
+                        # Ignore the extension, but make a note of it for
+                        # intolerance simulation.
+                        self.has_supported_versions = True
+                        _ = p.getFixBytes(extLength)
                     else:
                         _ = p.getFixBytes(extLength)
                     index2 = p.index
@@ -431,7 +437,7 @@ class ServerHello(HandshakeMsg):
             w2.add(4, 2)
             # version
             w2.add(0, 1)
-            w2.add(10, 1)
+            w2.add(13, 1)
             # length of params (defined as variable length <1..2^8-1>, but in
             # this context the server can only send a single value.
             w2.add(1, 1)

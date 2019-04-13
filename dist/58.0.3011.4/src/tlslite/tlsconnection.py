@@ -1352,8 +1352,16 @@ class TLSConnection(TLSRecordLayer):
             tackExt = TackExtension.create(tacks, activationFlags)
         else:
             tackExt = None
+        serverRandom = getRandomBytes(32)
+        # See https://tools.ietf.org/html/rfc8446#section-4.1.3
+        if settings.simulateTLS13Downgrade:
+            serverRandom = serverRandom[:24] + \
+                bytearray("\x44\x4f\x57\x4e\x47\x52\x44\x01")
+        elif settings.simulateTLS12Downgrade:
+            serverRandom = serverRandom[:24] + \
+                bytearray("\x44\x4f\x57\x4e\x47\x52\x44\x00")
         serverHello = ServerHello()
-        serverHello.create(self.version, getRandomBytes(32), sessionID, \
+        serverHello.create(self.version, serverRandom, sessionID, \
                             cipherSuite, CertificateType.x509, tackExt,
                             alpn_proto_selected,
                             nextProtos)
@@ -1457,6 +1465,15 @@ class TLSConnection(TLSRecordLayer):
         self._handshakeDone(resumed=False)
 
 
+    def _isIntolerant(self, settings, clientHello):
+        if settings.tlsIntolerant is None:
+            return False
+        clientVersion = clientHello.client_version
+        if clientHello.has_supported_versions:
+            clientVersion = (3, 4)
+        return clientVersion >= settings.tlsIntolerant
+
+
     def _serverGetClientHello(self, settings, certChain, verifierDB,
                                 sessionCache, anon, fallbackSCSV):
         #Tentatively set version to most-desirable version, so if an error
@@ -1480,8 +1497,7 @@ class TLSConnection(TLSRecordLayer):
                 yield result
 
         #If simulating TLS intolerance, reject certain TLS versions.
-        elif (settings.tlsIntolerant is not None and
-              clientHello.client_version >= settings.tlsIntolerant):
+        elif self._isIntolerant(settings, clientHello):
             if settings.tlsIntoleranceType == "alert":
                 for result in self._sendError(\
                     AlertDescription.handshake_failure):
